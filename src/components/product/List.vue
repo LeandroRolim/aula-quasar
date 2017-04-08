@@ -11,8 +11,8 @@
       <tbody>
       <tr v-for="product in products">
         <td>{{ product.id }}</td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.price }}</td>
+        <td>{{ product.descricao }}</td>
+        <td>{{ product.valor }}</td>
 
       </tr>
       </tbody>
@@ -25,6 +25,9 @@
   export default {
     computed: {
       products: () => store.getters.getProducts
+    },
+    mounted () {
+      this.$store.dispatch('load_products')
     }
   }
 </script>

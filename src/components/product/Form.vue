@@ -3,11 +3,6 @@
     <form>
       <legend>Cadastrar produto</legend>
       <div class="form-group">
-        <label>id</label>
-        <input type="number" v-model="id">
-      </div>
-
-      <div class="form-group">
         <label>Nome</label>
         <input type="text" v-model="name">
       </div>
@@ -24,20 +19,32 @@
 
 <script>
   import store from 'src/vuex/store'
+  import http from 'src/services/http'
   export default {
     data () {
       return {
         name: '',
         price: 0.0,
-        id: 0
       }
     },
     methods: {
       addProduct () {
-        store.commit('ADD_PRODUCT', {
-          id: this.id,
-          price: this.price,
-          name: this.name
+//        store.commit('ADD_PRODUCT', {
+//          id: this.id,
+//          price: this.price,
+//          name: this.name
+//        })
+        const vm = this
+        http.post('produtos/', {
+          descricao: vm.name,
+          valor: vm.price
+        }).then((response) => {
+          console.log('gravou dados')
+          store.commit('ADD_PRODUCT', {
+            id: response.data.ok,
+            valor: vm.price,
+            descricao: vm.name
+          })
         })
       }
     }
