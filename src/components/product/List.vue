@@ -21,12 +21,10 @@
 </template>
 
 <script>
+  import store from 'src/vuex/store'
   export default {
-    props: {
-      products: {
-        type: Array,
-        required: true
-      }
+    computed: {
+      products: () => store.getters.getProducts
     }
   }
 </script>

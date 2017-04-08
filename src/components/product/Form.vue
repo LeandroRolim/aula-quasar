@@ -23,6 +23,7 @@
 </template>
 
 <script>
+  import store from 'src/vuex/store'
   export default {
     data () {
       return {
@@ -33,7 +34,7 @@
     },
     methods: {
       addProduct () {
-        this.$emit('addProduct', {
+        store.commit('ADD_PRODUCT', {
           id: this.id,
           price: this.price,
           name: this.name
