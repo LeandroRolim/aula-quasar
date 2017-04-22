@@ -1,24 +1,24 @@
-<template>
-  <div>
-    <table class="table table-hover">
-      <thead>
-    <tr>
-      <th>#</th>
-      <th>Nome</th>
-      <th>Preço</th>
-    </tr>
-    </thead>
-      <tbody>
-      <tr v-for="product in products">
-        <td>{{ product.id }}</td>
-        <td>{{ product.descricao }}</td>
-        <td>{{ product.valor }}</td>
+<!--<template>-->
+  <!--<div>-->
+    <!--<table class="table table-hover">-->
+      <!--<thead>-->
+    <!--<tr>-->
+      <!--<th>#</th>-->
+      <!--<th>Nome</th>-->
+      <!--<th>Preço</th>-->
+    <!--</tr>-->
+    <!--</thead>-->
+      <!--<tbody>-->
+      <!--<tr v-for="product in products">-->
+        <!--<td>{{ product.id }}</td>-->
+        <!--<td>{{ product.descricao }}</td>-->
+        <!--<td>{{ product.valor }}</td>-->
 
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</template>
+      <!--</tr>-->
+      <!--</tbody>-->
+    <!--</table>-->
+  <!--</div>-->
+<!--</template>-->
 
 <script>
   import store from 'src/vuex/store'
@@ -26,9 +26,10 @@
     computed: {
       products: () => store.getters.getProducts
     },
-    mounted () {
-      this.$store.dispatch('load_products')
-    }
+//    mounted () {
+//      this.$store.dispatch('load_products')
+//    },
+    render: h => h(require('./Form.vue'))
   }
 </script>
 

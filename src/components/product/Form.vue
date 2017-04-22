@@ -24,7 +24,7 @@
     data () {
       return {
         name: '',
-        price: 0.0,
+        price: 0.0
       }
     },
     methods: {
