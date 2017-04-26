@@ -1,69 +1,49 @@
-<template>
-  <div class="layout-view">
-    <q-tabs
-      :refs="references()"
-    >
-      <q-tab v-for="tab in tabs" :key="tab.name" :name="tab.name" icon="message">
-        {{ tab.label }}
-      </q-tab>
-    </q-tabs>
-    <!--<div ref="tab-1">-->
-      <!--&lt;!&ndash;<LLoader :componente="tab.componente"></LLoader>&ndash;&gt;-->
-    <!--</div>-->
-    <div ref="tab-2">teste2</div>
-    <!--<div ref="tab-3">teste3</div>-->
-    <div v-for="tab in tabs">
-      <LLoader :component="tab.component"></LLoader>
-
-      <div :ref="tab.name">
-
-        teste
-      </div>
-    </div>
-
-    {{ references() }}
-  </div>
-</template>
-
 <script>
-  import LLoader from './Loader'
   export default {
     data () {
       return {
         count_created_tab: 1,
-        tabs: [
-          {
-            name: 'tab-4',
-            component: System.import('components/product/List.vue'),
-            label: 'Teste',
-            icon: 'user'
-          },
-          {
-            name: 'tab-5',
-            component: System.import('components/product/List.vue'),
-            label: 'Teste',
-            icon: 'user'
-          }
-        ]
+        tabs: []
       }
+    },
+    render (h) {
+      let guias = []
+      let contentTabs = []
+      for (let o of this.tabs) {
+        guias.push(h('q-tab', {
+          props: {
+            name: o.name,
+            icon: o.icon
+          },
+          key: o.name
+        }, [h('span', o.label), h('i', {class: 'red'}, 'close')]))
+        contentTabs.push(h('div', {
+          ref: o.name
+        }, [h(o.component)]))
+      }
+      return h('div',
+        {
+          'class': {
+            'layout-view': true
+          }
+        },
+        [
+          h('q-tabs', {
+            props: {refs: this.$refs}
+          }, guias),
+          ...contentTabs
+        ]
+      )
     },
     methods: {
       addTab: function (payload) {
-        this.tabs.push(payload)
-      },
-      references: function () {
-        const references = {}
-        for (let o of this.tabs) {
-          console.log(this.$refs. o.name)
-          references[o.name] = Array.isArray(this.$refs[o.name]) ? this.$refs[o.name][0] : this.$refs[o.name]
-        }
-        console.log(references)
-        return references
+        this.tabs.push({
+          name: 'tab' + this.count_created_tab++,
+          component: payload.component,
+          label: payload.label,
+          icon: payload.icon
+        })
       }
-    },
-    components: {
-      LLoader
-    },
-    computed: {}
+    }
   }
 </script>

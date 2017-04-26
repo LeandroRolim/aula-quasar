@@ -1,5 +1,5 @@
 function load (component) {
-  return () => System.import(`components/${component}.vue`)
+  return require(`components/${component}.vue`)
 }
 
 export default {

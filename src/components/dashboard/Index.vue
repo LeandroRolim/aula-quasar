@@ -20,7 +20,7 @@
         <i>clear</i>
       </button>
     </div>
-    <LDrawer ref="drawer" tab_ref="ltab1"></LDrawer>
+    <LDrawer ref="drawer" @openItem="addTab"></LDrawer>
     <LTabs ref="ltab1"></LTabs>
     <div slot="footer">
       Devoloper by Gropo Lira
@@ -37,7 +37,10 @@ export default {
     return {}
   },
   methods: {
-    max: () => AppFullscreen.toggle()
+    max: () => AppFullscreen.toggle(),
+    addTab: function (item) {
+      this.$refs.ltab1.addTab(item)
+    }
   },
   components: {
     LDrawer,

@@ -6,7 +6,7 @@
       </div>
       <q-collapsible v-for="item in sidebar" :key="item.key" group="sidebar" :icon="item.icon" :label="item.label">
         <div>
-          <div v-for="subitem in item.items" class="item item-link drawer-closer">
+          <div v-for="subitem in item.items" class="item item-link drawer-closer" @click="openItem(subitem)">
             <i class="item-primary">{{ subitem.icon }}</i>
             <div class="item-content">{{ subitem.label }}</div>
           </div>
@@ -22,16 +22,14 @@
     methods: {
       open: function () {
         this.$refs.drawer.open()
+      },
+      openItem: function (subitem) {
+        this.$emit('openItem', subitem)
       }
     },
     computed: {
       sidebar: function () {
         return this.$store.state.sidebar
-      }
-    },
-    props: {
-      tab_ref: {
-        required: true
       }
     }
   }
